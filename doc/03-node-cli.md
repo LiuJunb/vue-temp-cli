@@ -1,5 +1,21 @@
+# node编写cli命令行(三)
+
+该文章是在 `node编写cli命令行(二)` 的基础上继续编写的
+
+## 1.编写 addcom 指令
+
+编写一个 addcom 指令，例如当执行：`vue-temp-cli addcom HelloWorld -d /src/view/main`  时，会在`/src/view/main`目录下新建一个组件
+
+### 1.编写简单的 addcom 指令
+
+1.修改index.js文件
+
+添加新建项目的 addcom 指令
+
+```json
 #!/usr/bin/env node
 var create = require('./lib/create')
+// 导入addcom.js文件
 var addcom = require('./lib/addcom')
 var program = require('commander');
 
@@ -11,10 +27,7 @@ program
   .option('-d, --dir <dir>', '指定目录路劲,例如，src/view/main/。错误：/src/view/main/', './') // 获取 program.dir
 
 // 3.添加create指令
-program
-  .command('create <project> [otherArg...]')
-  .description('clone a repository into a newly created project or directory')
-  .action(create.initProject);
+.....
 
 // 5.添加 addcom 指令,例如：vue-temp-cli addcom Xxx -d src/view/main/
 program
@@ -25,15 +38,40 @@ program
   })
 
 // 4.添加help提示信息
-program.on('--help', function(){
-  console.log('')
-  console.log('Other:');
-  console.log('  $ vue-temp-cli --help');
-  console.log('  $ vue-temp-cli -h');
-  console.log('  $ vue-temp-cli -v');
-  console.log('  $ vue-temp-cli --version');
-  console.log('  $ vue-temp-cli -i 1');
-  console.log('  $ vue-temp-cli --interger 1');
-  console.log('  $ vue-temp-cli create myVue');
-});
+.....
 program.parse(process.argv);
+```
+
+
+
+2.编写 addcom.js 文件
+
+```
+
+```
+
+
+
+3.安装模板引擎ejs
+
+
+
+
+
+2.执行 `vue-temp-cli create myVue a b` 命令
+
+```json
+PS F:\blog\node-cli\vue-temp-cli> vue-temp-cli create myVue a b
+vue-temp-cli
+vue-temp-cli myVue a b
+PS F:\blog\node-cli\vue-temp-cli>
+```
+
+
+
+
+
+
+
+
+

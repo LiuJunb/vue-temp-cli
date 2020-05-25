@@ -1,0 +1,51 @@
+<%_ if (data) { _%>
+<template>
+  <div class="<%= data.name %>">
+    <h1>{{ msg }}</h1>
+  </div>
+</template>
+
+<script>
+export default {
+  name: '<%= data.humpName %>',
+  components: {
+
+  },
+  mixins: [],
+  props: {
+    msg: {
+      type: String,
+      default: '<%= data.humpName %>'
+    }
+  },
+  data: function() {
+    return {
+
+    }
+  },
+  computed: {
+
+  },
+  watch: {
+
+  },
+  created() {
+
+  },
+  mounted() {
+
+  },
+  methods: {
+
+  }
+
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+.<%- data.name %>{
+
+}
+</style>
+<%_ } _%>

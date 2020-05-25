@@ -19,14 +19,14 @@ var program = require('commander');
 // 1.添加版本
 program.version(require('./package.json').version,  '-v, --version')
 
-// 2.添加options提示信息
+// 2.添加 options 选项（可供后面定义的指令使用该选项，获取选项的属性 program.xxx ）
 program
-  .option('create <project>', '新建一个项目')
   .option('-i, --integer <n>', 'An integer argument')
 
-// 3.添加新建项目的 create 指令
+// 3.添加新建项目的 create 指令。例如：vue-temp-cli create xxx
 program
   .command('create <project> [otherArg...]')
+  .description('clone a repository into a newly created project or directory')
   .action(function (project, otherArg) {
     // vue-temp-cli create myVue a b
     console.log('vue-temp-cli', project, otherArg.join(' '));
@@ -138,7 +138,7 @@ utils.printWelcome('welcome  CLI')
 // 1.添加版本
 program.version(require('./package.json').version,  '-v, --version')
 
-// 2.添加options提示信息
+// 2.添加options
 ....
 // 3.添加create指令
 program
@@ -339,7 +339,7 @@ var program = require('commander');
 // 1.添加版本
 program.version(require('./package.json').version,  '-v, --version')
 
-// 2.添加options提示信息
+// 2.添加options
 ....
 // 3.添加create指令
 program

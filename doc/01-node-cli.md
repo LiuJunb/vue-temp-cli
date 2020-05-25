@@ -202,7 +202,7 @@ PS F:\blog\node-cli\vue-temp-cli>
 
 
 
-2.添加两个 options 提示显示
+2.添加两个 options 选项 （可供后面定义的指令使用该选项，获取选项的属性 program.xxx ）
 
 ```json
 #!/usr/bin/env node
@@ -210,7 +210,6 @@ console.log('vue-temp-cli')
 var program = require('commander');
 program.version(require('./package.json').version,  '-v, --version')
 
-program.option('create <project>', '新建一个项目，例如：vue-temp-cli create myVue')
 program.option('-i, --integer <n>', 'An integer argument')
 
 program.parse(process.argv);
@@ -227,7 +226,6 @@ Usage: index [options]
 
 Options:
   -v, --version      output the version number
-  create <project>   新建一个项目，例如：vue-temp-cli create myVue
   -i, --integer <n>  An integer argument
   -h, --help         display help for command
 PS F:\blog\node-cli\vue-temp-cli>
@@ -235,7 +233,7 @@ PS F:\blog\node-cli\vue-temp-cli>
 
 
 
-4.添加other 提示
+4.添加 other 提示
 
 ```json
 #!/usr/bin/env node
@@ -243,7 +241,6 @@ console.log('vue-temp-cli')
 var program = require('commander');
 program.version(require('./package.json').version,  '-v, --version')
 
-program.option('create <project>', '新建一个项目')
 program.option('-i, --integer <n>', 'An integer argument')
 
 program.on('--help', function(){
@@ -271,7 +268,6 @@ Usage: index [options]
 
 Options:
   -v, --version      output the version number
-  create <project>   新建一个项目
   -i, --integer <n>  An integer argument
   -h, --help         display help for command
 
