@@ -359,11 +359,9 @@ module.exports = {
 
 
 
-2.执行 `vue-temp-cli addcom hellow-World -d src/components` 命令
+2.执行 `vue-temp-cli addcom hellow-World -d src/components` 命令，就会在执行该命令的路劲下：新建`src/components/`这个目录，然后在该目录下新建`hellow-World.vue`文件。
 
-```json
 
-```
 
 
 
