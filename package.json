@@ -1,0 +1,27 @@
+{
+  "name": "vue-temp-cli",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "vue-temp-cli": "index.js"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "clear": "^0.1.0",
+    "commander": "^5.1.0",
+    "download-git-repo": "^3.0.2",
+    "figlet": "^1.4.0",
+    "open": "^7.0.4",
+    "ora": "^4.0.4"
+  }
+}
