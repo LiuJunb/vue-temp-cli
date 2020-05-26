@@ -2,6 +2,9 @@
 var create = require('./lib/create')
 var addcom = require('./lib/addcom')
 var addPage = require('./lib/addPage')
+var addStore = require('./lib/addStore')
+var addService = require('./lib/addService')
+var addPSS = require('./lib/addPSS')
 var program = require('commander')
 
 // 1.添加版本
@@ -32,6 +35,30 @@ program
 .description('add page component, 例如：vue-temp-cli addPage XXX -d src/view/main/')
 .action((name)=>{
   addPage.addPageCompoent(name, program.dir)
+})
+
+// 7.添加 addStore  指令,例如：vue-temp-cli addStore index -d src/store/modules/login
+program
+.command('addStore <name>')
+.description('add page store, 例如：vue-temp-cli addStore index -d src/store/modules/login')
+.action((name)=>{
+  addStore.addPageStore(name, program.dir)
+})
+
+// 8.添加 addService  指令,例如：vue-temp-cli addService index -d src/service/login
+program
+.command('addService <name>')
+.description('add page service, 例如：vue-temp-cli addService index -d src/service/login')
+.action((name)=>{
+  addService.addPageService(name, program.dir)
+})
+
+// 9.添加 addPSS  指令,例如：vue-temp-cli addPSS xxx -d src/view/login/
+program
+.command('addPSS <name>')
+.description('add page, store and service, 例如：vue-temp-cli addPSS xxx -d src/view/login/')
+.action((name)=>{
+  addPSS.addPSS(name, program.dir)
 })
 
 // 4.添加help提示信息
