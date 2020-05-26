@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 var create = require('./lib/create')
-var addcom = require('./lib/addcom')
+var addCom = require('./lib/addCom')
 var addPage = require('./lib/addPage')
 var addStore = require('./lib/addStore')
 var addService = require('./lib/addService')
@@ -20,13 +20,13 @@ program
   .description('clone a repository into a newly created project or directory')
   .action(create.initProject);
 
-// 5.添加 addcom 指令,例如：vue-temp-cli addcom Xxx -d src/view/main/
+// 5.添加 addCom 指令,例如：vue-temp-cli addCom Xxx -d src/view/main/
 program
-  .command('addcom <name>')
-  .description('add component, 例如：vue-temp-cli addcom XXX -d src/view/main/')
+  .command('addCom <name>')
+  .description('add component, 例如：vue-temp-cli addCom XXX -d src/view/main/')
   .action((name)=>{
     // program.dir 是获取到option中的dir属性
-    addcom.addcompoent(name, program.dir)
+    addCom.addCompoent(name, program.dir)
   })
 
 // 6.添加 addPage 指令,例如：vue-temp-cli addPage Xxx -d src/view/main/
