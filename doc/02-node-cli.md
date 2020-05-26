@@ -6,11 +6,11 @@
 
 编写一个新建vue项目的 create 指令，例如当执行：`vue-temp-cli create myVue`  时，会新建一个项目名称为myVue 的 Vue 项目
 
-### 1.编写简单的 create 指令
+### 1.编写 create 指令
 
 1.修改index.js文件
 
-添加新建项目的 create 指令
+在第3步添加新建项目的 create 指令
 
 ```json
 #!/usr/bin/env node
@@ -102,7 +102,7 @@ PS F:\blog\node-cli\vue-temp-cli>
     `-- index.js
 ````
 
-utils.js 文件内容如下
+utils.js 文件内容如下，编写了一个打印欢迎界面的函数，并导出
 
 ```js
 // Node8 就提供了 util.promisify() 这个方法，方便我们快捷的把原来的异步回调方法改成返回 Promise 实例的方法
@@ -128,6 +128,8 @@ module.exports = {
 
 
 3.在index.js文件引入 utils.js文件
+
+调用 utils的printWelcome函数打印欢迎界面
 
 ```json
 #!/usr/bin/env node
@@ -208,9 +210,9 @@ module.exports = {
 
 1.安装 download-git-repo ,  ora 库
 
-`download-git-repo` 用来 clone  `Github  GitLab`仓库项目的node库
+`download-git-repo` 用来 clone  `Github  GitLab`仓库项目的node库；
 
-`ora`  一个优雅的 Node.js 终端加载动画效果
+`ora`  一个优雅的 Node.js 终端加载动画效果；
 
 ```json
 PS F:\blog\node-cli\vue-temp-cli> npm install download-git-repo
@@ -231,6 +233,10 @@ PS F:\blog\node-cli\vue-temp-cli>
 
 
 2.在utils.js中编写`克隆模板项目`的代码
+
+1）导入`download-git-repo` 库的
+
+2）调用 `download-git-repo` 该库的  download 方法
 
 ```js
 // Node8 就提供了 util.promisify() 这个方法，方便我们快捷的把原来的异步回调方法改成返回 Promise 实例的方法
@@ -281,7 +287,19 @@ module.exports = {
     `-- index.js
 ```
 
-create.js文件对应的内容
+create.js文件对应的内容如下：
+
+该文件是create指令具体代码的实现
+
+1）打印欢迎界面
+
+2）自动克隆模板
+
+3）自动安装依赖
+
+4）自动打开浏览器
+
+5）自动运行项目
 
 ```json
 const utils = require('./utils')
@@ -291,10 +309,10 @@ const utils = require('./utils')
  * @param {*} otherArg  其它参数
  */
 const initProject =async (projectName, otherArg)=>{
-  // 1.欢迎界面
+  // 1.打印欢迎界面
   await utils.printWelcome('HYZS WEB CLI')
   console.log(`🚀新建项目:${projectName}`)
-  // 2.克隆模板
+  // 2.自动克隆模板
   await utils.cloneProject('direct:http://12.16.120.120/25759/vue-pro-temp.git#admin-app', projectName, { clone: true })
 
   // 3.自动安装依赖

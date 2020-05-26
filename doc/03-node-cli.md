@@ -4,13 +4,97 @@
 
 ## 1.编写 addcom 指令
 
-编写一个 addcom 指令，例如当执行：`vue-temp-cli addcom HelloWorld -d /src/view/main`  时，会在`/src/view/main`目录下新建一个组件
+编写一个 addcom 指令，例如当执行：`vue-temp-cli addcom HelloWorld -d /src/view/main`  时，会在`/src/view/main`目录下新建一个 `HelloWorld` 组件
 
-### 1.编写简单的 addcom 指令
+### 1.添加模板文件
+
+新建一个 template 文件夹
+
+```json
+lib
+	|--
+index.js
+template 
+    |-- mockjs
+    `-- src
+        |-- base-ui
+        |   `-- src
+        |       `-- components
+        |-- components
+        |   `-- hello-world.vue.ejs
+        |-- service
+        |-- store
+        `-- view
+            |-- login
+            |   |-- login.vue.ejs
+            |   `-- route.js.ejs
+            `-- main
+
+```
+
+`hello-world.vue.ejs`  文件
+
+```ejs
+<%_ if (data) { _%>
+<template>
+  <div class="<%= data.name %>">
+    <h1>{{ msg }}</h1>
+  </div>
+</template>
+
+<script>
+export default {
+  name: '<%= data.humpName %>',
+  components: {
+
+  },
+  mixins: [],
+  props: {
+    msg: {
+      type: String,
+      default: '<%= data.humpName %>'
+    }
+  },
+  data: function() {
+    return {
+
+    }
+  },
+  computed: {
+
+  },
+  watch: {
+
+  },
+  created() {
+
+  },
+  mounted() {
+
+  },
+  methods: {
+
+  }
+
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+.<%- data.name %>{
+
+}
+</style>
+<%_ } _%>
+```
+
+
+
+### 2.编写 addcom 指令
 
 1.修改index.js文件
 
-添加新建项目的 addcom 指令
+添加新建项目的 addcom 指令, 看下面的第5步
 
 ```json
 #!/usr/bin/env node
@@ -45,6 +129,14 @@ program.parse(process.argv);
 
 
 2.编写 addcom.js 文件
+
+该文件是addcom 指令  代码的具体实现过程。
+
+1）获取模板需要的数据（ 并且定义好：模板文件路径，生成目标文件的路劲 ）
+
+2）开始编译模板，使用（模板文件，数据），返回编译后的结果
+
+3）把编译后的结果写到指定 生成目标文件的路劲
 
 ```js
 const utils = require('./utils')
@@ -85,6 +177,8 @@ module.exports = {
 
 3.安装模板引擎ejs
 
+上面的模板编译使用到了ejs的模板引擎
+
 npm  install  ejs
 
 ```json
@@ -106,6 +200,8 @@ PS F:\blog\node-cli\vue-temp-cli>
 
 
 4.编写 utils.js 的工具类
+
+该工具类是用来获取 模板所需要的数据
 
 ```js
 .....
@@ -189,13 +285,16 @@ const generateFile = (path, data) => {
  * @param {*} name 
  */
 const getTemplateData = (name,dirPath)=>{
+  // src/view/login/login  1;  src/view/main/broad/broad  2;
+  let pathDir = dirPath+'/'+name
+  pathDir = pathDir.split('/').filter((v)=>{return v!==''}) // [src,view,login,login]
   return {
     // dirPath :getDirPath(name), // 新建组件的路劲
     dirPath, // 新建组件的路劲 src/view/main/
     name :nameUtils.getComponentDirName(name), // 组件的名称（小写） demo1btn 或者  demo1btn 或者 demo1-btn
     humpName : nameUtils.getComponentName(name), // 组件的名称（首字母大写并驼峰命名） Demo1Btn
     firLowName : nameUtils.getComponentNameFirLow(name), // 组件的名称（首字母小写，其它字符首字符大写）demo1Btn
-    routeLevel : nameUtils.getRouteLevel(name), // 组件路由的级别（1,2,3）
+    routeLevel : nameUtils.getRouteLevel(pathDir.join('/')) -3 , // 组件路由的级别（1,2,3）
     parentRouteName : nameUtils.getParentRouteName(name), // 组件父亲路由的名称 main 、 ''  、
   }
 }
@@ -232,7 +331,7 @@ module.exports = {
 
 
 
-5.编写 name-utils.js工具类
+5.编写 name-utils.js  工具类
 
 ```js
 
@@ -359,7 +458,9 @@ module.exports = {
 
 
 
-2.执行 `vue-temp-cli addcom hellow-World -d src/components` 命令，就会在执行该命令的路劲下：新建`src/components/`这个目录，然后在该目录下新建`hellow-World.vue`文件。
+### 3.测试addcom指令
+
+执行 `vue-temp-cli addcom hellow-World -d src/components` 命令，就会在执行该命令的路劲下：新建`src/components/`这个目录，然后在该目录下新建`hellow-World.vue`文件。
 
 ```json
 
@@ -370,11 +471,227 @@ vue-temp-cli addcom hellow-World
 vue-temp-cli addcom hellow-World -d src/components/
 vue-temp-cli addcom hellow-World -d src/components
 
-# 下面两种是错误的写法
+# 下面这种是错误的写法（不能以/开头）
 vue-temp-cli addcom hellow-World -d  /src/components
-vue-temp-cli addcom hellow-World -d  /src/components/
 
 ```
+
+
+
+## 2.编写addPage 指令
+
+### 1.添加模板
+
+`login.vue.ejs`
+
+```ejs
+<%_ if (data) { _%>
+<template>
+  <div class="<%= data.name %>">
+    <h1>{{ msg }} Page</h1>
+  </div>
+</template>
+
+<script>
+export default {
+  name: '<%= data.humpName %>',
+  components: {
+
+  },
+  mixins: [],
+  props: {
+    msg: {
+      type: String,
+      default: '<%= data.humpName %>'
+    }
+  },
+  data: function() {
+    return {
+
+    }
+  },
+  computed: {
+
+  },
+  watch: {
+
+  },
+  created() {
+
+  },
+  mounted() {
+
+  },
+  methods: {
+
+  }
+
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+.<%- data.name %>{
+
+}
+</style>
+<%_ } _%>
+
+```
+
+
+
+`route.js.ejs`
+
+```ejs
+
+<%_ if (data) { _%>
+// 普通加载路由
+// import <%= data.humpName %> from './<%= data.name %>.vue'
+// 懒加载路由
+const <%= data.humpName %> = () => import(/* webpackChunkName: "<%= data.name %>" */ './<%= data.name %>.vue')
+export default {
+  <%_ if (data.routeLevel === 1) { _%>
+  path: '/<%= data.name %>', // 一级路由前面多一个 /
+  <%_ } else { _%>
+  path: '<%= data.name %>', // 二级路由前面没有/
+  <%_ } _%>
+  name: '<%= data.name %>',
+  pname: '<%= data.parentRouteName %>', // 父亲路由的名称
+  level: <%= data.routeLevel %>, // <%= data.routeLevel %>级路由
+  component: <%= data.humpName %>,
+  children: [
+  ]
+}
+<%_ } _%>
+```
+
+
+
+### 2.编写addPage指令
+
+1.修改 index.js 文件
+
+在第6步中添加 addPage 指令
+
+```js
+#!/usr/bin/env node
+var create = require('./lib/create')
+var addcom = require('./lib/addcom')
+var addPage = require('./lib/addPage')
+var program = require('commander')
+
+// 1.添加版本
+program.version(require('./package.json').version,  '-v, --version')
+
+// 2.添加 options 选项（可供后面定义的指令使用该选项，获取选项的属性 program.xxx ）
+.....
+
+// 3.添加create指令
+.....
+
+// 5.添加 addcom 指令,例如：vue-temp-cli addcom Xxx -d src/view/main/
+.....
+
+// 6.添加 addPage 指令,例如：vue-temp-cli addPage Xxx -d src/view/main/
+program
+.command('addPage <name>')
+.description('add page component, 例如：vue-temp-cli addPage XXX -d src/view/main/')
+.action((name)=>{
+  addPage.addPageCompoent(name, program.dir)
+})
+
+// 4.添加help提示信息
+.....
+program.parse(process.argv);
+```
+
+
+
+2.编写 addPage.js 文件
+
+在 addPage.js 文件是  addPage 指令代码具体实现
+
+1）自动生成.vue文件
+
+​	1.获取模板需要的数据（ 并且定义好：模板文件路径，生成目标文件的路劲 ）
+
+​	2.开始编译模板，使用（模板文件，数据），返回编译后的结果
+
+​	3.把编译后的结果写到指定 生成目标文件的路劲
+
+2）自动生成route.js文件
+
+​	1.获取模板需要的数据（ 并且定义好：模板文件路径，生成目标文件的路劲 ）
+
+​	2.开始编译模板，使用（模板文件，数据），返回编译后的结果
+
+​	3.把编译后的结果写到指定 生成目标文件的路劲
+
+```js
+const utils = require('./utils')
+
+const addPageCompoent = (name, dir)=>{
+  // 1.自动生成.vue文件
+  addPageVue(name, dir)
+  // 2.自动生成route.js文件
+  addPageRoute(name, dir)
+}
+
+const addPageVue = (name, dir)=>{
+    // 1.获取模板需要的数据
+    const data = utils.getTemplateData(name, dir)
+    const templateFilePath = utils.resolveReallyPath('../template/src/view/login/login.vue.ejs')
+    const targetFilePath = utils.resolveRelativePath(`${dir}/${data.name}.vue`)
+    // 2.开始编译模板（模板文件，数据）
+    utils.compiler(templateFilePath, data)
+    // 3.编译成功后新建文件
+    .then((str)=>{
+      utils.mkdirsSync(dir)
+      utils.generateFile(targetFilePath, str)
+    })
+}
+
+const addPageRoute = (name, dir)=>{
+    // 1.获取模板需要的数据
+    const data = utils.getTemplateData(name, dir)
+    const templateFilePath = utils.resolveReallyPath('../template/src/view/login/route.js.ejs')
+    const targetFilePath = utils.resolveRelativePath(`${dir}/route.js`)
+    // 2.开始编译模板（模板文件，数据）
+    utils.compiler(templateFilePath, data)
+    // 3.编译成功后新建文件
+    .then((str)=>{
+      utils.mkdirsSync(dir)
+      utils.generateFile(targetFilePath, str)
+    })
+}
+module.exports = {
+  addPageCompoent
+}
+```
+
+
+
+### 3.测试addPage指令
+
+执行 `vue-temp-cli addPage login -d src/view/login/` 命令，就会在执行该命令的路劲下：新建`src/view/login/`这个目录，然后在该目录下新建`login.vue, 和 route.js`文件。
+
+```json
+# 在执行指令目录下下面一个`login.vue`文件
+vue-temp-cli addPage login 
+
+# 在执行指令目录下新建src/view/login/文件夹，然后在该文件夹下面新建一个`login.vue`文件
+vue-temp-cli addPage login -d src/view/login/
+vue-temp-cli addPage login -d src/view/login
+
+# 下面这种是错误的写法（不能以/开头）
+vue-temp-cli addcom hellow-World -d  /src/view/login
+
+```
+
+
+
+
 
 
 
