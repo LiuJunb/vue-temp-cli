@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 var create = require('./lib/create')
 var addcom = require('./lib/addcom')
-var program = require('commander');
+var addPage = require('./lib/addPage')
+var program = require('commander')
 
 // 1.添加版本
 program.version(require('./package.json').version,  '-v, --version')
@@ -21,8 +22,17 @@ program
   .command('addcom <name>')
   .description('add component, 例如：vue-temp-cli addcom XXX -d src/view/main/')
   .action((name)=>{
+    // program.dir 是获取到option中的dir属性
     addcom.addcompoent(name, program.dir)
   })
+
+// 6.添加 addPage 指令,例如：vue-temp-cli addPage Xxx -d src/view/main/
+program
+.command('addPage <name>')
+.description('add page component, 例如：vue-temp-cli addPage XXX -d src/view/main/')
+.action((name)=>{
+  addPage.addPageCompoent(name, program.dir)
+})
 
 // 4.添加help提示信息
 program.on('--help', function(){

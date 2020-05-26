@@ -361,7 +361,20 @@ module.exports = {
 
 2.执行 `vue-temp-cli addcom hellow-World -d src/components` 命令，就会在执行该命令的路劲下：新建`src/components/`这个目录，然后在该目录下新建`hellow-World.vue`文件。
 
+```json
 
+# 在执行指令目录下下面一个`hellow-World.vue`文件
+vue-temp-cli addcom hellow-World 
+
+# 在执行指令目录下新建src/components/文件夹，然后在该文件夹下面新建一个`hellow-World.vue`文件
+vue-temp-cli addcom hellow-World -d src/components/
+vue-temp-cli addcom hellow-World -d src/components
+
+# 下面两种是错误的写法
+vue-temp-cli addcom hellow-World -d  /src/components
+vue-temp-cli addcom hellow-World -d  /src/components/
+
+```
 
 
 

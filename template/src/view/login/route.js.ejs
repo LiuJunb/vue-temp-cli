@@ -1,23 +1,20 @@
-// import Login from './login.vue'
-const Login = () => import(/* webpackChunkName: "login" */ './login.vue')
+
+<%_ if (data) { _%>
+// 普通加载路由
+// import <%= data.humpName %> from './<%= data.name %>.vue'
+// 懒加载路由
+const <%= data.humpName %> = () => import(/* webpackChunkName: "<%= data.name %>" */ './<%= data.name %>.vue')
 export default {
-  path: '/login',
-  name: 'login',
-  pname: '', // 父亲路由的名称
-  level: 1, // 一级路由
-  component: Login,
+  <%_ if (data.routeLevel === 1) { _%>
+  path: '/<%= data.name %>', // 一级路由前面多一个 /
+  <%_ } else { _%>
+  path: '<%= data.name %>', // 二级路由前面没有/
+  <%_ } _%>
+  name: '<%= data.name %>',
+  pname: '<%= data.parentRouteName %>', // 父亲路由的名称
+  level: <%= data.routeLevel %>, // <%= data.routeLevel %>级路由
+  component: <%= data.humpName %>,
   children: [
-    // {
-    //   path: 'goodslist', // /main/goodslist
-    //   name: 'goodslist',
-    //   component: GoodsList,
-    //   children: [
-    //     {
-    //       path: 'create', // /main/goodslist/create
-    //       name: 'create',
-    //       component: GoodsListCreate
-    //     }
-    //   ]
-    // }
   ]
 }
+<%_ } _%>
