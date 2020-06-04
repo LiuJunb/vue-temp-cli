@@ -1,6 +1,7 @@
 <%_ if (data) { _%>
 import Types from './types.js'
-import <%= data.firLowName %>Service from '@/service/<%= data.dirPath %>/index.js'
+import allService from '@/service/load_services.js'
+const { <%= data.firLowName %>Service } = allService
 export default {
   // 1.启用命名空间
   namespaced: true,
