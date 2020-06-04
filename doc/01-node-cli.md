@@ -202,7 +202,7 @@ PS F:\blog\node-cli\vue-temp-cli>
 
 
 
-2.添加两个 options 选项 （可供后面定义的指令使用该选项，获取选项的属性 program.xxx ）
+2.添加一个 options 选项 （可供后面定义的指令使用该选项，获取选项的属性 program.xxx ）
 
 ```json
 #!/usr/bin/env node
