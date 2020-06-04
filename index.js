@@ -13,12 +13,16 @@ program.version(require('./package.json').version,  '-v, --version')
 // 2.添加 options 选项（可供后面定义的指令使用该选项，获取选项的属性 program.xxx ）
 program
   .option('-d, --dir <dir>', '指定目录路劲,例如，src/views/main/。错误写法：/src/views/main/', './') // 获取 program.dir
+  .option('-b, --branch <string>', '指定克隆项目分支的名称', '') // 获取 program.branch( 最后一个参数是默认值 )
 
 // 3.添加create指令
 program
   .command('create <project> [otherArg...]')
   .description('clone a repository into a newly created project or directory')
-  .action(create.initProject);
+  // .action(create.initProject);
+  .action((project,otherArg)=>{
+    create.initProject(project, otherArg, program.branch)
+  });
 
 // 5.添加 addCom 指令,例如：vue-temp-cli addCom xxx -d src/view/main/
 program
@@ -66,7 +70,7 @@ program
 // 4.添加help提示信息
 program.on('--help', function(){
   console.log('')
-  console.log('Other:');
+  console.log('Example:');
   console.log('  $ vue-temp-cli --help');
   console.log('  $ vue-temp-cli -h');
   console.log('  $ vue-temp-cli -v');
@@ -74,6 +78,7 @@ program.on('--help', function(){
   console.log('  $ vue-temp-cli -d src/views/xx/xxx');
 
   console.log('  $ vue-temp-cli create myVue');
+  console.log('  $ vue-temp-cli create myVue -b admin-app-system');
   console.log('  $ vue-temp-cli addPage xxx -d src/xx/xx');
   console.log('  $ vue-temp-cli addPSS xxx -d src/xx/xx');
   console.log('  $ vue-temp-cli addCom xxx -d src/xx/xx');
