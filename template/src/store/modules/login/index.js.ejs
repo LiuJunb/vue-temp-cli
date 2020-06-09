@@ -1,6 +1,9 @@
 <%_ if (data) { _%>
 import Types from './types.js'
 import allService from '@/service/load_services.js'
+import {
+  PaginatonDefaultConfig
+} from '@/config/index.js'
 const { <%= data.firLowName %>Service } = allService
 export default {
   // 1.启用命名空间
@@ -27,17 +30,29 @@ export default {
   // 4.提交action，来修改状态
   actions: {
     async data(context, payload) {
-      const result = await <%= data.firLowName %>Service.getData(payload)
+      const config = {
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        }
+      }
+      const result = await <%= data.firLowName %>Service.getData(payload, config)
       context.commit(Types.data, result.data)
       return Promise.resolve(result.data)
     },
     async list(context, payload) {
-      const result = await <%= data.firLowName %>Service.getList(payload)
-      context.commit(Types.list, result.data)
-      return Promise.resolve(result.data)
+      const config = {
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        }
+      }
+      const result = await <%= data.firLowName %>Service.getList(payload, config)
+      context.commit(Types.list, result.data.data)
+      return Promise.resolve(result.data.data)
     },
     async detail(context, payload) {
-      const result = await <%= data.firLowName %>Service.getDetail(payload)
+      const config = {
+      }
+      const result = await <%= data.firLowName %>Service.getDetail(payload, config)
       context.commit(Types.detail, result.data)
       return Promise.resolve(result.data)
     }
@@ -49,10 +64,28 @@ export default {
       return state.data
     },
     list(state, getters, rootState, rootGetters) {
-      return state.list
+      const data = state.list
+      if (data) {
+        return data.content || []
+      } else {
+        return []
+      }
+    },
+    listPaginatonConfig(state, getters, rootState, rootGetters) {
+      const data = state.list
+      if (data) {
+        return {
+          'current-page': data.pageNum + 1, // 当前第几页, 从 1 开始
+          'page-sizes': [10, 20, 30, 40], // 可选择一页显示多少条
+          'page-size': data.pageSize, // 一页显示多少条
+          total: data.totalSize // 总共有多少条
+        }
+      } else {
+        return { ...PaginatonDefaultConfig }
+      }
     },
     detail(state, getters, rootState, rootGetters) {
-      return state.list
+      return state.detail
     }
   }
 }

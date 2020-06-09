@@ -9,14 +9,14 @@ export const <%= data.name %>_api = {
 
 export default {
 
-  getData: (payload) => {
-    return httpPost(<%= data.name %>_api.dataUrl, payload)
+  getData: (payload, config) => {
+    return httpPost(example_api.dataUrl, payload, config)
   },
-  getList: (payload) => {
-    return httpPost(<%= data.name %>_api.listUrl, payload)
+  getList: (payload, config) => {
+    return httpPost(example_api.listUrl, payload, config)
   },
-  getDetail: (payload) => {
-    return httpGet(<%= data.name %>_api.detailUrl, payload)
+  getDetail: (payload, config) => {
+    return httpGet(example_api.detailUrl, payload, config)
   }
 
 }
