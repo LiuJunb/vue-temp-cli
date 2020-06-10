@@ -117,11 +117,11 @@ export default {
       tabColumnConfig,
       sexEnumList: Sex,
 
-      pageListActions: 'xx_xx/list', // xx_xx这个action name是根据store/modules/下的文件夹路劲命名
-      sortBy: 'xx',
-      // 这里的权限应该是从后台获取的，这里暂时写死
+      pageListActions: '<%= data.suffixDir %>/list', // suffixDir 这个action name是根据store/modules/下的文件夹路劲命名 todo
+      sortBy: 'id', // todo
+      // 这里的权限应该是从后台获取的，这里暂时写死 todo
       permissions: [
-        'pp.list.xx'
+        'pp.list'
       ]
 
       // tabData1: [
