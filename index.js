@@ -5,6 +5,7 @@ var addPage = require('./lib/addPage')
 var addStore = require('./lib/addStore')
 var addService = require('./lib/addService')
 var addPSS = require('./lib/addPSS')
+var addTablePSS = require('./lib/addTablePSS')
 var program = require('commander')
 
 // 1.添加版本
@@ -65,6 +66,14 @@ program
 .description('add page, store and service, 例如：vue-temp-cli addPSS xxx -d src/views/login/')
 .action((name)=>{
   addPSS.addPSS(name, program.dir)
+})
+
+// 10.添加 addTablePSS  指令,例如：vue-temp-cli addTablePSS xxx -d src/view/login/
+program
+.command('addTablePSS <name>')
+.description('add table page, store and service, 例如：vue-temp-cli addTablePSS xxx -d src/views/login/')
+.action((name)=>{
+  addTablePSS.addTablePSS(name, program.dir)
 })
 
 // 4.添加help提示信息
