@@ -1,0 +1,214 @@
+<%_ if (data) { _%>
+<template>
+  <div class="<%= data.name %>">
+    <el-dialog
+      :width="width"
+      custom-class="<%= data.name %>-dialog"
+      :close-on-click-modal="false"
+      :before-close="handleTopClearClose"
+      :visible.sync="visible">
+      <!-- 标题 -->
+      <div
+        slot="title"
+        class="title">
+        {{title}}
+      </div>
+      <!-- 内容部分 -->
+      <div class="dia-content">
+        <!-- 一般放的是表单组件 -->
+        <el-form
+          :ref="formName"
+          :inline="true"
+          :model="formData"
+          :rules="formRules">
+          <!--  :hashPre="" 默认值是 'hash_' -->
+          <b-advanced-input
+            hashPre="dia"
+            :formItems="formItem1"
+            :formData="formData"
+          >
+          </b-advanced-input>
+        </el-form>
+      </div>
+      <!-- 底部的布局 -->
+      <div slot="footer">
+        <el-button
+          size="medium"
+          type="primary"
+          @click="handleSubmitClick">确定</el-button>
+        <el-button
+          size="medium"
+          @click="handleClearClick">取消</el-button>
+      </div>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+/*
+ *@description:
+ *@author: liujun
+ *@email: liujun2son@163.com
+ *@date: 2020-07-10 17:22:51
+ *@version V0.1.0
+ *@API:
+ *@ 参数
+ *   defaultVisible: 默认是否显示对话框
+ *   width: 对话框的宽度,例如：'430px'
+ *   title: 对话框的标题
+ *@ 事件
+ *   this.$emit('handleBtnClick', 1, this.formData, this) // 1是确认
+ *   this.$emit('handleBtnClick', 0, null) // 0 是点击取消
+*/
+import BaseUI from 'BaseUI'
+const {
+  InputType,
+  getFormFieldIds,
+  getFormRules
+} = BaseUI.AdvancedInput
+const labelWidth = '90px'
+const colWidth = '240px'
+const formItem1 = [
+  {
+    ItemType: InputType.default,
+    fieldId: 'name',
+    defaultValue: undefined,
+    labelName: '活动1',
+    labelWidth: labelWidth,
+    style: {
+      width: colWidth
+    },
+    rules: [
+      { required: true, message: '请输入活动名称', trigger: 'blur' }
+    ],
+    placeholder: null
+  },
+  {
+    ItemType: InputType.select,
+    fieldId: 'sex',
+    defaultValue: null,
+    labelName: '性别',
+    labelWidth: labelWidth,
+    style: {
+      width: colWidth
+    },
+    clearable: true,
+    rules: [
+      { required: false, message: '请选择性别', trigger: 'change' }
+    ],
+    placeholder: null,
+    selectList: [
+      {
+        label: '男',
+        value: '1'
+      },
+      {
+        label: '女',
+        value: '2'
+      }
+    ]
+  }
+]
+export default {
+  name: '<%= data.humpName %>',
+  components: {
+
+  },
+  mixins: [],
+  props: {
+    // 默认是否显示对话框
+    defaultVisible: {
+      type: Boolean,
+      default: false
+    },
+    // 对话框的宽度
+    width: {
+      type: String,
+      default: '430px'
+    },
+    // 对话框的标题
+    title: {
+      type: String,
+      default: '对话框的标题'
+    }
+  },
+  data: function() {
+    return {
+      formItem1: formItem1,
+      visible: this.defaultVisible,
+      formName: 'dialogForm',
+      formData: getFormFieldIds([...formItem1]),
+      formRules: getFormRules([...formItem1])
+    }
+  },
+  computed: {
+
+  },
+  watch: {
+    defaultVisible(val, old) {
+      this.visible = val
+    }
+  },
+  created() {
+
+  },
+  mounted() {
+
+  },
+  methods: {
+    // show
+    show() {
+      this.visible = true
+    },
+    // close
+    hide() {
+      this.visible = false
+      // 重置表单
+      this.$refs[this.formName].resetFields()
+    },
+    // 点击对话框顶部的 x
+    handleTopClearClose(done) {
+      this.hide()
+    },
+    // 点击确认
+    handleSubmitClick() {
+      this.$refs[this.formName].validate((valid, object) => {
+        if (valid) {
+          this.$emit('handleBtnClick', 1, { ...this.formData }, this)
+        }
+      })
+    },
+    // 点击取消
+    handleClearClick() {
+      this.hide()
+      this.$emit('handleBtnClick', 0, null)
+    }
+
+  }
+
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+.<%- data.name %>{
+}
+</style>
+
+<style lang="scss">
+// 全局样式
+.<%- data.name %>-dialog{
+  border-radius: 6px !important;
+  .el-dialog__header{
+    border-bottom: 1px solid #E8EAF0;
+    padding: 12px 20px;
+    .el-dialog__headerbtn{
+      top: 12px;
+    }
+  }
+  .el-dialog__body{
+    padding: 15px 20px;
+  }
+}
+</style>
+<%_ } _%>

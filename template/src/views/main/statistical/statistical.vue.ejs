@@ -1,0 +1,208 @@
+<%_ if (data) { _%>
+<template>
+  <div class="<%= data.name %>">
+    <!-- 高级搜索 -->
+    <b-advanced-search
+       ref='advanced-search'
+       label-width="90px"
+       :inline="true"
+       :showBtn="false"
+       :formItems="adSearchConfig"
+       @handleFormItemChange="handleFormItemChange"
+    >
+    </b-advanced-search>
+
+    <!--part1 数据面板展示 -->
+    <b-grid-view
+      :itemData="panelData"
+      :hasPagination="false"
+      :xl="5"
+      :lg="5"
+      :md="12"
+      :gutter="18"
+    >
+      <template v-slot:col-item="slotProps">
+        <div class="gird-col-part1">
+          {{slotProps.item.name}}
+        </div>
+      </template>
+    </b-grid-view>
+
+    <!-- part2 -->
+    <section class="section-part2">
+      <el-row :gutter="20">
+        <el-col
+          :xl="8"
+          :lg="12"
+        >
+          <div class="part-container">
+            <b-title-tag
+              class="title-tag"
+              name="线索处置情况">
+            </b-title-tag>
+            <base-echarts
+              id="statusAdviceEcharts"
+              ref="statusAdviceEcharts"
+              :option="statusAdviceEcharts"
+              height="340px"
+              >
+            </base-echarts>
+          </div>
+        </el-col>
+        <el-col
+          :xl="8"
+          :lg="12"
+        >
+          <div class="part-container">
+            <b-title-tag
+              class="title-tag"
+              name="线索成案指数分布情况">
+            </b-title-tag>
+            <base-echarts
+              id="cluesCollectionEcharts"
+              ref="cluesCollectionEcharts"
+              height="340px"
+              :option="statusAdviceEcharts" >
+            </base-echarts>
+          </div>
+        </el-col>
+        <el-col
+          :xl="8"
+          :lg="24"
+        >
+          <div class="part-container">
+            <b-title-tag
+              class="title-tag"
+              name="线索推送情况">
+            </b-title-tag>
+
+            <base-echarts
+              id="cluesDisposalEcharts"
+              ref="cluesDisposalEcharts"
+              height="340px"
+              :option="statusAdviceEcharts"
+              >
+            </base-echarts>
+          </div>
+        </el-col>
+      </el-row>
+    </section>
+  </div>
+</template>
+
+<script>
+import {
+  adSearchConfig,
+  statusAdviceEcharts
+} from './page-config'
+import {
+  BaseEcharts
+} from '@/basic-comps/index.js'
+
+// import {
+
+// } from '@/config/index.js'
+// import {
+
+// } from '@/utils/common.js'
+// import {
+  
+// } from '@/mixins/index.js'
+// import {
+
+// } from '@/enum/index.js'
+// import {
+
+// } from '@/components/index.js'
+export default {
+  name: '<%= data.humpName %>',
+  components: {
+    BaseEcharts
+  },
+  mixins: [],
+  props: {
+    msg: {
+      type: String,
+      default: '<%= data.humpName %>'
+    }
+  },
+  data: function() {
+    return {
+      adSearchConfig,
+      panelData: [
+        { name: '刘军' },
+        { name: '刘军' },
+        { name: '军子' },
+        { name: '刘军' },
+        { name: '军子' },
+        { name: '刘军' },
+        { name: '军子' },
+        { name: '军军' },
+        { name: '军军' },
+        { name: '军军' }
+      ],
+      statusAdviceEcharts
+    }
+  },
+  computed: {
+
+  },
+  watch: {
+
+  },
+  created() {
+
+  },
+  mounted() {
+
+  },
+  methods: {
+    handleFormItemChange(value, formItem) {
+      console.log(value, formItem)
+    }
+  }
+
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+.<%- data.name %>{
+  // 背景样式
+  // background: $bgColorF1;
+  // margin: -20px;
+  // padding: 20px;
+  // width: 100%;
+
+  //part1一行分成5分
+  @media only screen and (min-width: 1200px) {
+    /deep/ .el-col-lg-5{
+      width: 20%;
+    }
+  }
+  @media only screen and (min-width: 1920px) {
+    /deep/ .el-col-xl-5{
+        width: 20%;
+      }
+  }
+  .gird-col-part1{
+    height: 100px;
+    margin-bottom: 20px;
+    background: white;
+    border-radius: 6px;
+    border: 1px solid $tableBorderColor;
+  }
+  // part2
+  .section-part2{
+    margin-top: 20px;
+  }
+  .part-container{
+    padding: 10px;
+    margin-bottom: 15px;
+    background: white;
+    border-radius: 6px;
+    border: 1px solid $tableBorderColor;
+  }
+}
+</style>
+<%_ } _%>

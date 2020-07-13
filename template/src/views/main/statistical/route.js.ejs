@@ -1,0 +1,25 @@
+<%_ if (data) { _%>
+  // 普通加载路由
+  // import <%= data.humpName %> from './<%= data.name %>.vue'
+  // 懒加载路由
+  const <%= data.humpName %> = () => import(/* webpackChunkName: "<%= data.name %>" */ './<%= data.name %>.vue')
+  export default {
+    name: '<%= data.name %>',
+    <%_ if (data.routeLevel === 1) { _%>
+    path: '/<%= data.name %>', // 一级路由前面多一个 /
+    pname: '', // 父亲路由的名称
+    <%_ } else { _%>
+    path: '<%= data.name %>', // 非一级路由前面没有/
+    pname: 'main', // 父亲路由的名称
+    <%_ } _%>
+    level: <%= data.routeLevel %>, // todo 级路由（number类型）
+    component: <%= data.humpName %>,
+    children: [
+    ],
+    meta: {
+      keepAlive: false, // 指定页面需不需要缓存
+      requireAuth: false // 指定页面需不需要登录才能访问
+    }
+  }
+  <%_ } _%>
+  

@@ -17,18 +17,22 @@ export default {
   // 3.修改状态
   mutations: {
     // 这里的 `state` 对象是模块的局部状态
+    // todo... 如果该mutation用到了,请把该注释修改或者删除
     [Types.data](state, payload) {
       state.data = payload
     },
+    // todo... 如果该mutation用到了,请把该注释修改或者删除
     [Types.list](state, payload) {
       state.list = payload
     },
+    // todo... 如果该mutation用到了,请把该注释修改或者删除
     [Types.detail](state, payload) {
       state.detail = payload
     }
   },
   // 4.提交action，来修改状态
   actions: {
+    // todo... 如果该action用到了,请把该注释修改或者删除
     async data(context, payload) {
       const config = {
         headers: {
@@ -39,6 +43,7 @@ export default {
       context.commit(Types.data, result.data)
       return Promise.resolve(result.data)
     },
+    // todo... 如果该action用到了,请把该注释修改或者删除
     async list(context, payload) {
       const config = {
         headers: {
@@ -49,6 +54,7 @@ export default {
       context.commit(Types.list, result.data.data)
       return Promise.resolve(result.data.data)
     },
+    // todo... 如果该action用到了,请把该注释修改或者删除
     async detail(context, payload) {
       const config = {
       }
@@ -60,9 +66,11 @@ export default {
   // 5.获取定义的状态, 通过store.getters获取里面的函数,例如：store.getters.count
   getters: {
     // state 是获取局部状态；rootState是获取根状态
+    // todo... 如果该getter用到了,请把该注释修改或者删除
     data(state, getters, rootState, rootGetters) {
       return state.data
     },
+    // todo... 如果该getter用到了,请把该注释修改或者删除
     list(state, getters, rootState, rootGetters) {
       const data = state.list
       if (data) {
@@ -71,6 +79,7 @@ export default {
         return []
       }
     },
+    // todo... 如果该getter用到了,请把该注释修改或者删除
     listPaginatonConfig(state, getters, rootState, rootGetters) {
       const data = state.list
       if (data) {
@@ -84,6 +93,7 @@ export default {
         return { ...PaginatonDefaultConfig }
       }
     },
+    // todo... 如果该getter用到了,请把该注释修改或者删除
     detail(state, getters, rootState, rootGetters) {
       return state.detail
     }

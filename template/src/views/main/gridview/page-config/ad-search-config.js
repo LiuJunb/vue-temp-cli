@@ -1,7 +1,7 @@
 import BaseUI from 'BaseUI'
 const { SearchType } = BaseUI.AdvancedSearch
-const labelWidth = null // 130px
-const colWidth = '280px' // 220 280
+const colWidth = '200px'
+const labelWidth = '90px'
 export const adSearchConfig = [
   {
     ItemType: SearchType.custom,
@@ -10,6 +10,7 @@ export const adSearchConfig = [
     defaultValue: undefined,
     labelName: '网址',
     labelWidth: labelWidth,
+
     style: {
       width: colWidth
     },
@@ -44,7 +45,6 @@ export const adSearchConfig = [
           value: '2'
         }
       ]
-      // todo ...  其它的属性查找 element select 组件属性
     },
     formItem_2: {
       fieldId: 'address',
@@ -57,7 +57,6 @@ export const adSearchConfig = [
       style: {
         width: '280px'
       }
-      // todo ...  其它的属性查找 element input 组件属性
     }
   },
 
@@ -67,15 +66,13 @@ export const adSearchConfig = [
 
     defaultValue: undefined,
     labelName: '用户名称',
-    labelWidth: labelWidth,
     style: {
-      width: colWidth
+      width: '280px'
     },
     rules: [
       { required: false, message: '请输入用户名称', trigger: 'blur' }
     ],
     placeholder: '请输入用户名称'
-    // todo ...  其它的属性查找 element input 组件属性
   },
   {
     ItemType: SearchType.select,
@@ -87,10 +84,10 @@ export const adSearchConfig = [
       { required: false, message: '请选择性别', trigger: 'change' }
     ],
     placeholder: null,
-    labelWidth: labelWidth,
     style: {
-      width: colWidth
+      width: '280px'
     },
+
     selectList: [
       {
         label: '男',
@@ -101,7 +98,6 @@ export const adSearchConfig = [
         value: '2'
       }
     ]
-    // todo ...  其它的属性查找 element select 组件属性
   },
   {
     ItemType: SearchType.selectDataAndTime,
@@ -132,85 +128,34 @@ export const adSearchConfig = [
   {
     ItemType: SearchType.selectDateRange,
     fieldId: 'createDate',
-    // defaultValue: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
-    // defaultValue: ['2020-03-08', '2020-03-09'],
     defaultValue: null,
     labelName: '创建时间',
     valueFormat: 'yyyy-MM-dd',
-    labelWidth: labelWidth,
-    style: {
-      width: colWidth
-    },
+    // labelWidth: '150px',
     rules: [
       { required: false, message: '请选择时间', trigger: 'change' }
     ],
     placeholder: null,
-    // todo ...  其它的属性查找 element data-picker 组件属性
+    style: {
+      width: '230px'
+    }
   },
   {
     ItemType: SearchType.selectDate,
     fieldId: 'startDate',
     defaultValue: null,
     labelName: '时间1',
+    // labelWidth: '150px',
     valueFormat: 'yyyy-MM-dd',
     rules: [
       // { type: 'date', required: false, message: '请选择时间', trigger: 'change' }
       { type: 'string', required: false, message: '请选择时间', trigger: 'change' }
     ],
     placeholder: null,
-    labelWidth: labelWidth,
     style: {
-      width: colWidth
-    },
+      width: '140px'
+    }
     // todo ...  其它的属性查找 element data-picker 组件属性
-  },
-  {
-    ItemType: SearchType.radios,
-    fieldId: 'radios_11',
-    defaultValue: '',
-    labelName: '请选择活动资源',
-    labelWidth: labelWidth,
-    style: {
-      width: colWidth
-    },
-    radioList: [
-      {
-        label: '线上品牌商赞助'
-      },
-      {
-        label: '线下场地免费'
-      }
-    ],
-    rules: [
-      { required: false, message: '请选择活动资源', trigger: 'change' }
-    ],
-    placeholder: null
-    // todo ...  其它的属性查找 element radio 组件属性
-  },
-  {
-    ItemType: SearchType.checkboxs,
-    fieldId: 'check_box_1',
-    defaultValue: [],
-    labelName: '活动性质',
-    labelWidth: labelWidth,
-    style: {
-      width: colWidth
-    },
-    checkboxList: [
-      {
-        label: '美食/餐厅线上活动'
-      },
-      {
-        label: '地推活动'
-      },
-      {
-        label: '线下主题活动'
-      }
-    ],
-    rules: [
-      { type: 'array', required: false, message: '请至少选择一个活动性质', trigger: 'change' }
-    ],
-    placeholder: null
-    // todo ...  其它的属性查找 element checkbox 组件属性
-  },
+  }
+
 ]

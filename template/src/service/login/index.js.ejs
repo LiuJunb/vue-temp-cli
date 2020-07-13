@@ -1,7 +1,7 @@
 <%_ if (data) { _%>
 import { httpGet, httpPost } from '@/http/index.js'
 
-export const <%= data.name %>_api = {
+export const <%= data.firLowName %>_api = {
   dataUrl: '/home1',
   listUrl: '/tablelist',
   detailUrl: '/home1'
@@ -10,13 +10,13 @@ export const <%= data.name %>_api = {
 export default {
 
   getData: (payload, config) => {
-    return httpPost(<%= data.name %>_api.dataUrl, payload, config)
+    return httpPost(<%= data.firLowName %>_api.dataUrl, payload, config)
   },
   getList: (payload, config) => {
-    return httpPost(<%= data.name %>_api.listUrl, payload, config)
+    return httpPost(<%= data.firLowName %>_api.listUrl, payload, config)
   },
   getDetail: (payload, config) => {
-    return httpGet(<%= data.name %>_api.detailUrl, payload, config)
+    return httpGet(<%= data.firLowName %>_api.detailUrl, payload, config)
   }
 
 }
