@@ -1,5 +1,7 @@
 import BaseUI from 'BaseUI'
 const { SearchType } = BaseUI.AdvancedSearch
+const labelWidth = null
+const colWidth = '280px'
 export const adSearchConfig = [
 
   {
@@ -12,8 +14,9 @@ export const adSearchConfig = [
       { required: false, message: '请选择性别', trigger: 'change' }
     ],
     placeholder: null,
+    labelWidth:labelWidth,
     style: {
-      width: '280px'
+      width: colWidth
     },
 
     selectList: [
@@ -38,9 +41,10 @@ export const adSearchConfig = [
       { required: false, message: '请选择时间', trigger: 'change' }
     ],
     placeholder: null,
+    labelWidth:labelWidth,
     style: {
-      width: '260px'
-    }
+      width: colWidth
+    },
   }
 
 ]
