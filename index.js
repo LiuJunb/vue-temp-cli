@@ -6,6 +6,9 @@ var addStore = require('./lib/addStore')
 var addService = require('./lib/addService')
 var addPSS = require('./lib/addPSS')
 var addTablePSS = require('./lib/addTablePSS')
+var addGridPSS = require('./lib/addGridPSS')
+var addHomePSS = require('./lib/addHomePSS')
+var addModal = require('./lib/addModal')
 var program = require('commander')
 
 // 1.添加版本
@@ -75,6 +78,31 @@ program
 .action((name)=>{
   addTablePSS.addTablePSS(name, program.dir)
 })
+// 11.添加 addGridPSS  指令,例如：vue-temp-cli addGridPSS xxx -d src/view/login/
+program
+.command('addGridPSS <name>')
+.description('add gridview page, store and service, 例如：vue-temp-cli addGridPSS xxx -d src/views/login/')
+  .action((name) => {
+  // name:xxx  dir:src/view/login/
+  addGridPSS.addGridPSS(name, program.dir)
+})
+// 12.添加 addHomePSS  指令,例如：vue-temp-cli addHomePSS xxx -d src/view/login/
+program
+.command('addHomePSS <name>')
+.description('add 首页统计 page, store and service, 例如：vue-temp-cli addHomePSS xxx -d src/views/login/')
+  .action((name) => {
+  // name:xxx  dir:src/view/login/
+  addHomePSS.addHomePSS(name, program.dir)
+  })
+
+// 13.添加 addModal  指令,例如：vue-temp-cli addModal gen-modal -d src/components/all-modal/gen-modal/
+program
+  .command('addModal <name>')
+  .description('add modal component, 例如：vue-temp-cli addModal xxx -d src/components/all-modal/xxx')
+  .action((name)=>{
+    // program.dir 是获取到option中的dir属性
+    addModal.addModal(name, program.dir)
+  })
 
 // 4.添加help提示信息
 program.on('--help', function(){
