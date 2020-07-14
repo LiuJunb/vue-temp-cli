@@ -24,7 +24,6 @@ export const adSearchConfig = [
     labelName: '城市',
     formItem_1: {
       fieldId: 'area',
-
       rules: [
         { required: false, message: '请选择活动区域', trigger: 'change' }
       ],
@@ -60,7 +59,6 @@ export const adSearchConfig = [
       // todo ...  其它的属性查找 element input 组件属性
     }
   },
-
   {
     ItemType: SearchType.default,
     fieldId: 'name',
@@ -144,7 +142,7 @@ export const adSearchConfig = [
     rules: [
       { required: false, message: '请选择时间', trigger: 'change' }
     ],
-    placeholder: null,
+    placeholder: null
     // todo ...  其它的属性查找 element data-picker 组件属性
   },
   {
@@ -161,7 +159,7 @@ export const adSearchConfig = [
     labelWidth: labelWidth,
     style: {
       width: colWidth
-    },
+    }
     // todo ...  其它的属性查找 element data-picker 组件属性
   },
   {
@@ -212,5 +210,5 @@ export const adSearchConfig = [
     ],
     placeholder: null
     // todo ...  其它的属性查找 element checkbox 组件属性
-  },
+  }
 ]
