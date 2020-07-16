@@ -86,7 +86,7 @@ import {
 } from './page-config'
 import {
   // PaginatonDefaultConfig,
-  // CurSearchParams
+  CurSearchParams
 } from '@/config/index.js'
 // import {
 //   filterNullValue
@@ -103,6 +103,7 @@ import {
 // import {
 
 // } from '@/basic-comps/index.js'
+import { MessageBox, Message } from 'element-ui'
 export default {
   name: '<%= data.humpName %>',
   components: {
@@ -190,14 +191,14 @@ export default {
     //   this.curSearchParams.pageNum = 1
     //   this.getList(this.curSearchParams, valuse)
     // },
-    // // 按钮组
-    // handleBtnListClick(item) {
-    //   // console.log(item)
-    //   // 刷新(不需要缓存)
-    //   if (item._name === '刷新') {
-    //     this.getList({ ...CurSearchParams })
-    //   }
-    // },
+    // 按钮组
+    handleBtnListClick(item) {
+      // console.log(item)
+      // 刷新(不需要缓存)
+      if (item._name === '刷新') {
+        this.getList({ ...CurSearchParams })
+      }
+    },
     handleBtnOperClick(item, row) {
       if (item.name === '查看') {
         // 在新的tab页面打开
@@ -213,8 +214,42 @@ export default {
         //   params: { type: 'detail' },
         //   query: { id: 1 }
         // })
+
+        // todo ... 没这个功能可以删除
         this.$router.push(`/main/<%- data.name %>/detail?id=${1}`)
-      }
+      } else if (item.name === '详情') {
+        // todo ... 没这个功能可以删除
+        this.$router.push(`/main/<%- data.name %>/detail?id=${1}`)
+      } else if (item.name === '编辑') {
+        // todo ... 没这个功能可以删除
+      } else if (item.name === '删除') {
+        // todo ... 没这个功能可以删除
+        MessageBox.confirm('此操作将永久删除该记录, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$store.dispatch(`${this.pageListActions}Delete`, {
+            id: row.id
+          }).then((res) => {
+            if (res.code === 0) {
+              Message({
+                message: `删除成功`,
+                type: 'success'
+              })
+              // 刷新页面（需要缓存）
+              this.getList(this.curSearchParams)
+            } else {
+              Message({
+                message: `删除失败`,
+                type: 'error'
+              })
+            }
+          })
+        }).catch(() => {
+        // 点击取消
+        })
+      } 
     },
     handleSelectionClick(rows) {
       console.log(rows)

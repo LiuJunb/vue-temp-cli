@@ -4,6 +4,7 @@ import { httpGet, httpPost } from '@/http/index.js'
 export const <%= data.firLowName %>_api = {
   dataUrl: '/home1',
   listUrl: '/tablelist',
+  listDelete: '/listDelete',
   detailUrl: '/home1'
 }
 
@@ -14,6 +15,9 @@ export default {
   },
   getList: (payload, config) => {
     return httpPost(<%= data.firLowName %>_api.listUrl, payload, config)
+  },
+  listDelete: (payload, config) => {
+    return httpGet(<%= data.firLowName %>_api.listDelete+`/{payload.id}`, payload, config)
   },
   getDetail: (payload, config) => {
     return httpGet(<%= data.firLowName %>_api.detailUrl, payload, config)

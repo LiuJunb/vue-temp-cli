@@ -55,6 +55,13 @@ export default {
       return Promise.resolve(result.data.data)
     },
     // todo... 如果该action用到了,请把该注释修改或者删除
+    async listDelete(context, payload) {
+      const config = {
+      }
+      const result = await <%= data.firLowName %>Service.listDelete(payload, config)
+      return Promise.resolve(result.data)
+    },
+    // todo... 如果该action用到了,请把该注释修改或者删除
     async detail(context, payload) {
       const config = {
       }
