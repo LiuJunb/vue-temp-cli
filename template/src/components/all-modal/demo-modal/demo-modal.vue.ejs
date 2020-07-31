@@ -130,7 +130,9 @@ export default {
     title: {
       type: String,
       default: '对话框的标题'
-    }
+    },
+    // 添加其它的属性
+
   },
   data: function() {
     return {
@@ -156,6 +158,29 @@ export default {
 
   },
   methods: {
+    // 初始化对话框的数据，该方法一般在 watch 中被调用
+    initModalData() {
+      // 例如,新建 对话框初始化数据
+      // this.initCreateModalData()
+      // 例如,编辑 对话框初始化数据
+      // this.initEditModalData()
+
+      // 1.例如，初始化 formItem 的配置
+      // this.formItem1[1].selectList = [
+      //   {
+      //     label: '男1号',
+      //     value: '1'
+      //   },
+      //   {
+      //     label: '女1号',
+      //     value: '1'
+      //   }
+      // ]
+
+      // 2.例如，初始化 表单 的值
+      // this.formData.name = '刘军'
+      // this.formData.sex = '男1号'
+    },
     // show
     show() {
       this.visible = true
@@ -164,8 +189,14 @@ export default {
     hide() {
       this.visible = false
       // 重置表单
+      this.resetAll()
+    },
+    // 重置对话的所有的数据
+    resetAll() {
+      // 重置表单
       this.$refs[this.formName].resetFields()
     },
+
     // 点击对话框顶部的 x
     handleTopClearClose(done) {
       this.hide()

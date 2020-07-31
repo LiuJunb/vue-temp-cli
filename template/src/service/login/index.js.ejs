@@ -17,7 +17,7 @@ export default {
     return httpPost(<%= data.firLowName %>_api.listUrl, payload, config)
   },
   listDelete: (payload, config) => {
-    return httpGet(<%= data.firLowName %>_api.listDelete+`/{payload.id}`, payload, config)
+    return httpGet(<%= data.firLowName %>_api.listDelete + `/{payload.id}`, payload, config)
   },
   getDetail: (payload, config) => {
     return httpGet(<%= data.firLowName %>_api.detailUrl, payload, config)

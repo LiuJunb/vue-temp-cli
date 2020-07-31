@@ -19,10 +19,9 @@
     </b-advanced-search>
     <!-- 分界线 -->
     <b-divider-line :style="{margin:'0px -20px'}"></b-divider-line>
-    <!-- 按钮组 -->
+    <!-- 按钮组 :permissions="permissions"-->
     <b-button-group
       :style="{margin:'15px 0px'}"
-      :permissions="permissions"
       :btnList="btnListConfig"
       @handleBtnClick="handleBtnListClick">
       <template v-slot:upload-1="slotProps">
