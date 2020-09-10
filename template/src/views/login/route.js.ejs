@@ -16,6 +16,10 @@ export default {
   level: <%= data.routeLevel %>, // todo 级路由（number类型）
   component: <%= data.humpName %>,
   children: [
-  ]
+  ],
+  meta: {
+    keepAlive: false, // 指定页面需不需要缓存
+    requireAuth: false // 指定页面需不需要登录才能访问
+  }
 }
 <%_ } _%>

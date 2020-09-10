@@ -53,6 +53,36 @@ vue-temp-cli addHomePSS gen-page -d src/views/main/gen-page
 ```
 
 
+# 
+
+
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "clear": "^0.1.0",
+    "commander": "^5.1.0",
+    "download-git-repo": "^3.0.2",
+    "ejs": "^3.1.3",
+    "figlet": "^1.4.0",
+    "open": "^7.0.4",
+    "inquirer": "^7.1.0",
+    "ora": "^4.0.4"
+  },
+
+  "dependencies": {
+    "axios": "^0.19.2",
+    "chalk": "^4.0.0",
+    "child-process-promise": "^2.2.1",
+    "commander": "^5.0.0",
+    "download-git-repo": "^3.0.2",
+    "handlebars": "^4.7.6",
+    "inquirer": "^7.1.0",
+    "metalsmith": "^2.3.0",
+    "ora": "^4.0.4",
+    "semver": "^7.3.2",
+    "spawn-sync": "^2.0.0"
+  },
+
+
 
 
 
