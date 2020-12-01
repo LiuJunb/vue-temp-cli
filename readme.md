@@ -1,6 +1,6 @@
 # admin-app-system
 
-## 1.安装脚手架
+## 1.运行脚手架项目
 
 Project setup
 
@@ -20,8 +20,12 @@ Compiles and minifies for production
 npm run build
 ```
 
+## 2.全局安装脚手架
 
+```
+npm install -g @liujunb/vue-temp-cli
 
+```
 ## 2.常用命令
 
 
@@ -53,9 +57,9 @@ vue-temp-cli addHomePSS gen-page -d src/views/main/gen-page
 ```
 
 
-# 
+# 3.使用到的依赖
 
-
+```
   "dependencies": {
     "chalk": "^4.0.0",
     "clear": "^0.1.0",
@@ -82,7 +86,7 @@ vue-temp-cli addHomePSS gen-page -d src/views/main/gen-page
     "spawn-sync": "^2.0.0"
   },
 
-
+```
 
 
 
